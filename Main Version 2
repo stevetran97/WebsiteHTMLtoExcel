@@ -26,7 +26,7 @@ import re
 '''Inputs down below_____________________________________________________________________'''
 search_list_url = 'https://www.newegg.ca/p/pl?d=Graphics&page=1'  #The base URL to be scraped
 filename = "GraphicsCardSearch.csv"    #The name of the excel file
-headers = "Product, Priice, Shipping, stock, link\n"    #The name of the column headers separated by commas
+headers = "Product, Price, Shipping, stock, link\n"    #The name of the column headers separated by commas
 
 
 
@@ -91,12 +91,21 @@ for container in entry_containers:
     '''Extract desired information from string'''
     try:
         product_name = re.search('product_title:(.+?)]', info_container).group(1)
+        product_name = product_name.replace(',', '|')
+    except AttributeError:
+        print("Could not find a title")
+    try:
         sale_price = re.search('product_sale_price:(.+?)]', info_container).group(1)
+    except AttributeError:
+        print("Could not find a sale price")
+    try:
         shipping_cost = re.search('product_default_shipping_cost:(.+?)]', info_container).group(1)
+    except AttributeError:
+        print("Could not find a shipping cost")
+    try:
         stock = re.search('product_instock:(.+?)]', info_container).group(1)
     except AttributeError:
-        print("Could not find a value")
-
+        print("Could not find a shipping stock")
 
     '''Simutaneously write the information extracted to the excel file'''
     f.write(product_name + "," + sale_price + "," +  shipping_cost  + "," + stock + "," + entry_link +"\n")
