@@ -1,3 +1,2 @@
-# WebScraper Javascript to Excel
-A tool for extracting computer hardware specs from New Egg to excel for comparisons.
-An excercise in Python, Javascript, and HTML
+Opens and scraps the graphics card search pages on NewEgg. 
+An experimentation with python, Beautiful Soup, HTML, javascript, etc.
